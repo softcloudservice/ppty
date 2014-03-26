@@ -16,4 +16,6 @@
      <bean id ="SDSMyBatisTemplate" class="com.sds.ppty.dao.mybatis.SDSMyBatisTemplateImpl" init-method="initialize">
 		<property name="myBatisConfigurator" ref="SDSMyBatisConfigurator"/>
 	</bean>
+	
+	<!-- <bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" /> -->
 </beans>
