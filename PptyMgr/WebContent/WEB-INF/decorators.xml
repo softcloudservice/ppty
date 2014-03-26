@@ -1,0 +1,7 @@
+<!-- The application siemesh decorator specifying the name of the jsp that decorates the jsp outputs.-->
+<decorators defaultdir="/WEB-INF/jsp/sitemeshlayout">
+	<decorator name="mainPattern" page="/WEB-INF/decorators/pptymainlayout.jsp">
+		<pattern>*.sd</pattern>
+	</decorator>
+	
+</decorators>
