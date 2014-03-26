@@ -6,7 +6,7 @@
  	<param-name>contextConfigLocation</param-name>
  	<param-value>/WEB-INF/beans/config/dispatcher-servlet.xml,
  				/WEB-INF/beans/config/annotation-config.xml,
- 				/WEB-INF/beans/config/hibernate-beans.xml</param-value>
+ 				/WEB-INF/beans/config/mybatis-beans.xml</param-value>
  </context-param>
    
   <servlet>
