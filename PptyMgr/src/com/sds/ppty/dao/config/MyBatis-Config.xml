@@ -16,5 +16,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</environments>
 	<mappers>
 		<mapper resource="com/sds/ppty/dao/map/test.xml" />
+		<mapper resource="com/sds/ppty/dao/map/common/Authentication.xml" />		
 	</mappers>
 </configuration>

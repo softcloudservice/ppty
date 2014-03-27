@@ -28,6 +28,10 @@ id="WebApp_ID" version="3.0">
  	<servlet-name>spring-dispatcher</servlet-name>
  	<url-pattern>*.sd</url-pattern>
  </servlet-mapping>
+  <servlet-mapping>
+ 	<servlet-name>spring-dispatcher</servlet-name>
+ 	<url-pattern>*.auth</url-pattern>
+ </servlet-mapping>
  
 <filter>
     <filter-name>sitemesh</filter-name>

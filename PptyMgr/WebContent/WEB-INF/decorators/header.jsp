@@ -38,7 +38,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="#">Profile</a></li>
 						<li class="divider"></li>
-						<li><a href="login.html">Logout</a></li>
+						<li><a href="j_spring_security_logout">Logout</a></li>
 					</ul>
 				</div>
 				<!-- user dropdown ends -->				

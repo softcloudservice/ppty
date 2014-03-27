@@ -5,8 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sds.ppty.service.test.TestService;
@@ -23,6 +25,13 @@ public class TestController {
 
 	public void setTestService(TestService testService) {
 		this.testService = testService;
+	}
+	@RequestMapping(value = "/welcome.sd", method = RequestMethod.POST)
+	public String welcomeAdmin(ModelMap model) {
+
+		model.addAttribute("message", "Spring Security logout example");
+		return "hello";
+
 	}
 	
 	@RequestMapping("test.sd")

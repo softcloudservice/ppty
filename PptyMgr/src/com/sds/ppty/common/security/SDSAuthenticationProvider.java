@@ -2,10 +2,8 @@ package com.sds.ppty.common.security;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -16,8 +14,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.sds.ppty.dao.common.SDSAuthDAO;
+
 public class SDSAuthenticationProvider implements AuthenticationProvider, UserDetailsService {
 	
+	private SDSAuthDAO authDAO;
+	
+	public SDSAuthDAO getAuthDAO() {
+		return authDAO;
+	}
+
+	public void setAuthDAO(SDSAuthDAO authDAO) {
+		this.authDAO = authDAO;
+	}
+
 	private static final List<GrantedAuthority> AUTHORITIES  = new ArrayList<GrantedAuthority>();
 
 	static {
@@ -36,8 +46,12 @@ public class SDSAuthenticationProvider implements AuthenticationProvider, UserDe
         throw new BadCredentialsException("Bad Credentials");*/
 		String name = auth.getName();
         String password = auth.getCredentials().toString();
+        
         if (name.equals("admin") && password.equals("system")) {
             List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
+            String role =  this.getAuthDAO().getUserRole(name);
+            System.out.println(role);
+            grantedAuths.add(new GrantedAuthorityImpl(role));
             grantedAuths.add(new GrantedAuthorityImpl("ROLE_USER"));
              auth = new UsernamePasswordAuthenticationToken(name, password, grantedAuths);
             return auth;
