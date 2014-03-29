@@ -35,7 +35,7 @@ document.forms[0].submit();
 	<c:if test="${param.error == 'true'}">
     	<span>Invalid login please check username and password...</span>
 	</c:if> --%>
-
+			
 			<div class="row-fluid">
 				<div class="well span5 center">
 				<c:if test="${param.error == 'true'}">
@@ -47,8 +47,9 @@ document.forms[0].submit();
 				</c:if>
 					<div class="alert alert-info">
 						Please login with your Username and Password.
+						
 					</div>
-					<form name='loginForm' action="" class="form-horizontal" action=""	method='POST'>
+					<form name='loginForm' action="" commandName="user" class="form-horizontal" action=""	method='POST'>					
 						<fieldset>
 							<div class="input-prepend" title="Username" data-rel="tooltip">
 								<span class="add-on"><i class="icon-user"></i></span><input autofocus class="input-large span10" name="j_username" id="j_username" type="text" value="" />

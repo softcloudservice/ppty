@@ -7,6 +7,7 @@
 	<div class="errorMessage" style="padding-left: 8px;">
 		<c:out value="${message}" />
 	</div>
+	
 	<div class="box-content">
 		<form class="form-horizontal" name="registerForm" commandName="user" action="registerUser.auth" method='POST'>
 			<fieldset>
@@ -70,6 +71,6 @@
 			  </div>
 			</fieldset>
 		  </form>					
-	</div>
+	</div>	
 </body>
 </html>

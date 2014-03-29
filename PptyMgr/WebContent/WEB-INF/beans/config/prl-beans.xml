@@ -11,8 +11,19 @@ http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">	
 
 	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
-	<bean id="SessionHolder" class="com.tgt.isp.spf.common.cml.SessionHolderImpl" scope="session">
+	<bean id="SessionHolder" class="com.sds.ppty.common.web.SessionHolderImpl" scope="session">
 		<aop:scoped-proxy proxy-target-class="false"/>
+	</bean>
+	
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>
+					com.sds.ppty.common.web.webMessageResources
+				</value>
+			</list>
+		</property>
 	</bean>
 
 </beans>
