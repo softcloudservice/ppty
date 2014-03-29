@@ -3,6 +3,8 @@ package com.sds.ppty.prl.test;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +18,8 @@ import com.sds.ppty.service.test.TestService;
 
 @Controller
 public class TestController {
+	
+	static final Logger logger = LogManager.getLogger(TestController.class.getName());
 	
 	@Autowired
 	private TestService testService;
@@ -38,8 +42,8 @@ public class TestController {
 	@RequestMapping("test.sd")
     public ModelAndView  testMyBatis(@ModelAttribute("name") String name,HttpServletRequest request,
 	        HttpServletResponse response) {
-		System.out.println(this.getTestService().getTestData());
-		
+		logger.info("Spring MVC Log4j!");
+		System.out.println(this.getTestService().getTestData());		
 		BaseVO vo =  new BaseVO();
 		System.out.println(vo.getCreatedUser());
 		System.out.println(vo.getUpdatedUser());

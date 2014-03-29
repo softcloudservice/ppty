@@ -2,6 +2,9 @@ package com.sds.ppty.common.security;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,8 +18,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.sds.ppty.dao.common.SDSAuthDAO;
+import com.sds.ppty.prl.test.TestController;
 
 public class SDSAuthenticationProvider implements AuthenticationProvider, UserDetailsService {
+	
+	static final Logger logger = LogManager.getLogger(SDSAuthenticationProvider.class.getName());
 	
 	private SDSAuthDAO authDAO;
 	
@@ -37,6 +43,7 @@ public class SDSAuthenticationProvider implements AuthenticationProvider, UserDe
 	@Override
 	public Authentication authenticate(Authentication auth)
 			throws AuthenticationException {
+		logger.info("Authenticating user - "+auth.getName());
 		/* if (auth.getName().equals(auth.getCredentials())) {
 			 //System.out.println(auth.getName()+"--"+auth.getCredentials());
             return new UsernamePasswordAuthenticationToken(auth.getName(),
