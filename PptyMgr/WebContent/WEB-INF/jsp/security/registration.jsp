@@ -7,10 +7,11 @@
 	<div class="errorMessage" style="padding-left: 8px;">
 		<c:out value="${message}" />
 	</div>
-	
 	<div class="box-content">
-		<form class="form-horizontal" name="registerForm" commandName="user" action="registerUser.auth" method='POST'>
-			<fieldset>
+		<form:form name="registerForm" commandName="user" action="registerUser.auth" method='POST'>
+		<form:errors path="*" cssStyle="color : red;"/>
+			<div class="form-horizontal">
+			<fieldset>			
 			 <div class="control-group">
 				<label class="control-label" for="focusedInput">First Name</label>
 				<div class="controls">
@@ -70,7 +71,8 @@
 				<button class="btn">Cancel</button>
 			  </div>
 			</fieldset>
-		  </form>					
+			</div>			
+		  </form:form>		  					
 	</div>	
 </body>
 </html>

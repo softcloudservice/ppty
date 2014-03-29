@@ -59,7 +59,7 @@ public class AuthenticationController {
 		System.out.println(request.getParameter("password"));
 		System.out.println(request.getParameterMap().keySet().toString());
 		System.out.println(request.getParameterMap().values().toString());
-		
+		logger.info(result.getAllErrors().toString());
 		ModelAndView mv = new ModelAndView(WebConstants.REGISTRATION_PAGE,WebConstants.USER,userVO);
 		return mv; 
 	}
