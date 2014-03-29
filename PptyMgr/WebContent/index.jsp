@@ -10,7 +10,7 @@
 <body onload="">
 <script type="text/javascript">
 function submitForm(){
-	alert("submitting the form");
+	//alert("submitting the form");
 document.forms[0].action='test.sd';
 document.forms[0].submit();
 }

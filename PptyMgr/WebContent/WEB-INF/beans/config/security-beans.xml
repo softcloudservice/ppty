@@ -20,7 +20,7 @@
     <http auto-config="true">    	
 		<intercept-url pattern="/*.sd" access="ROLE_USER" />
 		<form-login login-page="/login.auth" default-target-url="/test.sd"
-			authentication-failure-url="/login.auth" />
+			authentication-failure-url="/login.auth?error=true" />
 		<logout logout-success-url="/" />
 	</http>
 	

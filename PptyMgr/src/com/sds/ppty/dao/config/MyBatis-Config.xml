@@ -3,6 +3,9 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<!-- <typeAliases>
+			<typeAlias alias="userVO" type="com.sds.ppty.entities.common.UserVO" />
+	</typeAliases> -->
 	<environments default="LOCAL">
 		<environment id="LOCAL">
 			<transactionManager type="JDBC" />
@@ -18,4 +21,5 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/sds/ppty/dao/map/test.xml" />
 		<mapper resource="com/sds/ppty/dao/map/common/Authentication.xml" />		
 	</mappers>
+	
 </configuration>

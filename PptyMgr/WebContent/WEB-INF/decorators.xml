@@ -2,6 +2,8 @@
 <decorators defaultdir="/WEB-INF/jsp/sitemeshlayout">
 	<decorator name="mainPattern" page="/WEB-INF/decorators/pptymainlayout.jsp">
 		<pattern>*.sd</pattern>
+		<pattern>/register.auth</pattern>
+		<pattern>/registerUser.auth</pattern>
+		<pattern>/login.auth</pattern>
 	</decorator>
-	
 </decorators>

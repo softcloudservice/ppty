@@ -4,7 +4,24 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Authentication">
+
+	<!-- <resultMap id="userProfileMap" type="userVO">
+	    <result property="merchClassId" column="MDSE_CLAS_REF_I" />
+		<result property="classId" column="MDSE_CLAS_I" />
+		<result property="classOrSubClassName" column="MDSE_CLAS_N" />
+		<result property="strategyId" column="ORG_DIR_I" />
+		<result property="prvStrategyId" column="ORG_DIR_I" />
+	</resultMap> -->
+	
 	<select id="getUserRole" resultType="String" parameterType="java.lang.String" >
   		    SELECT AUTHORITY FROM test.USER_AUTH WHERE  USERNAME = #{username}
-	</select>		
+	</select>
+	
+	<!-- <select id="getUserProfile" resultMap="String" parameterType="userMap" >
+  		    SELECT ID,FIRST_NAME,MIDDLE_NAME,LAST_NAME,SUFFIX,USER_ID,
+			EMAIL,MOBILE,LOCATION,ADDRESS,
+			FROM ${schema}.USER WHERE  USERNAME = #{username} AND PASSWORD= #{password}
+	</select> -->	
+	
+		
 </mapper>

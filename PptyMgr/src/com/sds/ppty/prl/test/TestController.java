@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sds.ppty.entities.common.BaseVO;
 import com.sds.ppty.service.test.TestService;
 
 @Controller
@@ -38,6 +39,14 @@ public class TestController {
     public ModelAndView  testMyBatis(@ModelAttribute("name") String name,HttpServletRequest request,
 	        HttpServletResponse response) {
 		System.out.println(this.getTestService().getTestData());
+		
+		BaseVO vo =  new BaseVO();
+		System.out.println(vo.getCreatedUser());
+		System.out.println(vo.getUpdatedUser());
+		System.out.println(vo.getCurrentTimestamp());
+		System.out.println(vo.getCreatedTimeStamp());
+		System.out.println(vo.getUpdatedTimeStamp());
+		
 		ModelAndView mv = new ModelAndView("test","sriharsha","sriharsha");
 		return mv;
     }
