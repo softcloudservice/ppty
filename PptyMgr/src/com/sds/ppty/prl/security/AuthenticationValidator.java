@@ -20,6 +20,8 @@ public class AuthenticationValidator implements Validator{
 		emailsPattern = Pattern.compile(EMAIL_PATTERN);
 		mobilePattern = Pattern.compile(MOBILE_PATTERN);
 		userPattern   = Pattern.compile(USERNAME_PATTERN);
+		alphaPattern = Pattern.compile(ALPHA_ONLY);
+		pswdPattern = Pattern.compile(PASSWORD_PATTERN);
 	}
 	
 	static final Logger logger = LogManager.getLogger(AuthenticationValidator.class.getName());
@@ -30,6 +32,10 @@ public class AuthenticationValidator implements Validator{
 	
 	private Pattern userPattern;
 	
+	private Pattern alphaPattern;
+	
+	private Pattern pswdPattern;
+	
 	private Matcher matcher;
 	
 	private static final String EMAIL_PATTERN = 
@@ -39,6 +45,10 @@ public class AuthenticationValidator implements Validator{
 	private static final String MOBILE_PATTERN = "\\d{10}";
 	
 	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9]*$";
+	
+	private static final String ALPHA_ONLY =  "^[a-zA-Z]*$";
+	
+	private static final String PASSWORD_PATTERN = "((?=.*[a-z])(?=.*d)(?=.*[A-Z]).{6,12})";
 	
 	@Autowired
 	@Qualifier("messageSource")
@@ -68,11 +78,31 @@ public class AuthenticationValidator implements Validator{
 	@Override
 	public void validate(Object command, Errors errors) {
 		logger.info("validating inside validator");
-		UserVO userVO = (UserVO)command;
+		UserVO userVO = (UserVO)command;		
+		
+		matcher = alphaPattern.matcher(userVO.getFirstName());
 		if(userVO.getFirstName()==null || userVO.getFirstName().isEmpty())
 			errors.rejectValue("firstName", "field.required");
+		else if(userVO.getFirstName().length() >30 || userVO.getFirstName().length() <3)
+			errors.rejectValue("firstName", "field.invalidlength");
+		else if(!matcher.matches())
+			errors.rejectValue("firstName", "field.alpha");
+		
+		
+		matcher = alphaPattern.matcher(userVO.getMiddleName());
+		if(userVO.getMiddleName()!=null && userVO.getMiddleName().length() >30)
+			errors.rejectValue("middleName", "field.invalidlength");
+		else if(userVO.getMiddleName()!=null && !matcher.matches())
+			errors.rejectValue("middleName", "field.alpha");
+		
+		matcher = alphaPattern.matcher(userVO.getLastName());
 		if(userVO.getLastName()==null || userVO.getLastName().isEmpty())
 			errors.rejectValue("lastName", "field.required");
+		else if(userVO.getLastName().length() >30 || userVO.getLastName().length() <3)
+			errors.rejectValue("lastName", "field.invalidlength");
+		else if(!matcher.matches())
+			errors.rejectValue("lastName", "field.alpha");
+		
 		
 		matcher = userPattern.matcher(userVO.getUsername());
 		if(userVO.getUsername()==null || userVO.getUsername().isEmpty())
@@ -82,10 +112,16 @@ public class AuthenticationValidator implements Validator{
 		else if(!matcher.matches())
 			errors.rejectValue("username", "username.invalidformat");
 		
+		matcher = pswdPattern.matcher(userVO.getPassword());
 		if(userVO.getPassword()==null || userVO.getPassword().isEmpty())
-			errors.rejectValue("password", "field.required");
-		if(userVO.getConfirmPswd()==null || userVO.getConfirmPswd().isEmpty())
-			errors.rejectValue("confirmPswd", "field.required");
+			errors.rejectValue("password", "field.required");		
+		else if(!matcher.matches())
+			errors.rejectValue("password", "password.invalidformat");
+		
+		if(userVO.getConfirmPswd()==null || userVO.getConfirmPswd().isEmpty() 
+				|| userVO.getPassword()!=userVO.getConfirmPswd())
+			errors.rejectValue("confirmPswd", "passwordconfirm.invalid");	
+				
 		
 		matcher = emailsPattern.matcher(userVO.getEmail());
 		if(userVO.getEmail()==null || userVO.getEmail().isEmpty())
