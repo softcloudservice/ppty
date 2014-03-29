@@ -20,7 +20,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 		<property name="basenames">
 			<list>
 				<value>
-					com.sds.ppty.common.web.webMessageResources
+					com.sds.ppty.common.web.webMessageResources_en_US
 				</value>
 			</list>
 		</property>
