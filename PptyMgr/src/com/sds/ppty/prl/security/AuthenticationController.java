@@ -20,11 +20,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sds.ppty.constants.WebConstants;
 import com.sds.ppty.entities.common.UserVO;
 import com.sds.ppty.prl.test.TestController;
+import com.sds.ppty.services.security.SecurityService;
 
 @Controller
 public class AuthenticationController {
 
 	static final Logger logger = LogManager.getLogger(TestController.class.getName());
+	
+	@Autowired
+	private SecurityService securityService;
 	
 	@Autowired
 	@Qualifier("authenticationValidator")
@@ -55,12 +59,11 @@ public class AuthenticationController {
 	public ModelAndView registerUser(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute(WebConstants.USER) UserVO userVO,BindingResult result) {
 		validator.validate(userVO, result);
-		System.out.println(request.getParameter("firstName"));
-		System.out.println(request.getParameter("password"));
-		System.out.println(request.getParameterMap().keySet().toString());
-		System.out.println(request.getParameterMap().values().toString());
-		logger.info(result.getAllErrors().toString());
-		ModelAndView mv = new ModelAndView(WebConstants.REGISTRATION_PAGE,WebConstants.USER,userVO);
+		if(!result.hasErrors())
+		{
+			this.getSecurityService().registerUser(userVO);
+		}
+		ModelAndView mv = new ModelAndView(WebConstants.LOGIN_PAGE,WebConstants.USER,userVO);
 		return mv; 
 	}
 	
@@ -83,5 +86,19 @@ public class AuthenticationController {
 	 */
 	public void setValidator(AuthenticationValidator validator) {
 		this.validator = validator;
+	}
+
+	/**
+	 * @return the securityService
+	 */
+	public SecurityService getSecurityService() {
+		return securityService;
+	}
+
+	/**
+	 * @param securityService the securityService to set
+	 */
+	public void setSecurityService(SecurityService securityService) {
+		this.securityService = securityService;
 	}
 }

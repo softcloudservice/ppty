@@ -48,7 +48,7 @@ public class AuthenticationValidator implements Validator{
 	
 	private static final String ALPHA_ONLY =  "^[a-zA-Z]*$";
 	
-	private static final String PASSWORD_PATTERN = "((?=.*[a-z])(?=.*d)(?=.*[A-Z]).{6,12})";
+	private static final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-zA-Z]).{6,12}$";
 	
 	@Autowired
 	@Qualifier("messageSource")
@@ -119,7 +119,7 @@ public class AuthenticationValidator implements Validator{
 			errors.rejectValue("password", "password.invalidformat");
 		
 		if(userVO.getConfirmPswd()==null || userVO.getConfirmPswd().isEmpty() 
-				|| userVO.getPassword()!=userVO.getConfirmPswd())
+				|| !userVO.getPassword().equals(userVO.getConfirmPswd()))
 			errors.rejectValue("confirmPswd", "passwordconfirm.invalid");	
 				
 		
@@ -136,10 +136,6 @@ public class AuthenticationValidator implements Validator{
 			errors.rejectValue("mobile", "mobile.invalid");
 		if(userVO.getLocation()==null || userVO.getLocation().isEmpty())
 			errors.rejectValue("location", "field.required");
-		
-		
-		
-			
 	}
 
 }
