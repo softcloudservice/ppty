@@ -11,7 +11,8 @@ id="WebApp_ID" version="3.0">
  				/WEB-INF/beans/config/annotation-config.xml,
  				/WEB-INF/beans/config/mybatis-beans.xml,
  				/WEB-INF/beans/config/security-beans.xml,
- 				/WEB-INF/beans/config/prl-beans.xml</param-value>
+ 				/WEB-INF/beans/config/prl-beans.xml,
+ 				/WEB-INF/beans/config/exception-beans.xml</param-value>
  </context-param>
    
   <servlet>

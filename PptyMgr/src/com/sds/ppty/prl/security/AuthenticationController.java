@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sds.ppty.common.exception.PrlExceptionHandler;
 import com.sds.ppty.constants.WebConstants;
 import com.sds.ppty.entities.common.UserVO;
 import com.sds.ppty.prl.test.TestController;
@@ -58,12 +59,20 @@ public class AuthenticationController {
 	@RequestMapping("registerUser.auth")
 	public ModelAndView registerUser(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute(WebConstants.USER) UserVO userVO,BindingResult result) {
-		validator.validate(userVO, result);
-		if(!result.hasErrors())
+		ModelAndView mv=null;
+		try{
+				validator.validate(userVO, result);
+				if(!result.hasErrors())
+				{
+					this.getSecurityService().registerUser(userVO);
+				}
+				mv = new ModelAndView(WebConstants.LOGIN_PAGE,WebConstants.USER,userVO);
+		}									
+		catch (Exception e)
 		{
-			this.getSecurityService().registerUser(userVO);
+			mv = this.getExceptionHandler().handleException(e, result,
+			        WebConstants.LOGIN_PAGE);
 		}
-		ModelAndView mv = new ModelAndView(WebConstants.LOGIN_PAGE,WebConstants.USER,userVO);
 		return mv; 
 	}
 	
@@ -100,5 +109,23 @@ public class AuthenticationController {
 	 */
 	public void setSecurityService(SecurityService securityService) {
 		this.securityService = securityService;
+	}
+
+	@Autowired
+	@Qualifier("PrlExceptionHandler")
+	private PrlExceptionHandler exceptionHandler;
+
+	/**
+	 * @return the exceptionHandler
+	 */
+	public PrlExceptionHandler getExceptionHandler() {
+		return exceptionHandler;
+	}
+
+	/**
+	 * @param exceptionHandler the exceptionHandler to set
+	 */
+	public void setExceptionHandler(PrlExceptionHandler exceptionHandler) {
+		this.exceptionHandler = exceptionHandler;
 	}
 }

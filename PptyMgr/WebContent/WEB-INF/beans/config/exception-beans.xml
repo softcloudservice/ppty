@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+  	
+	<!-- All bean names(id) have to start with Capital letter -->
+	<bean id="DaoExceptionHandler" class="com.sds.ppty.common.exception.DAOExceptionHandlerImpl" />
+	<bean id="BslExceptionHandler" class="com.sds.ppty.common.exception.ServiceExceptionHandlerImpl"/>
+	<bean id="PrlExceptionHandler" class="com.sds.ppty.common.exception.PrlExceptionHandlerImpl">
+	     <property name="commonErrorPage" value="error/generic_error" />
+	</bean> 
+
+</beans>
+

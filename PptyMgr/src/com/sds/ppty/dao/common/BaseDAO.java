@@ -6,10 +6,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.sds.ppty.common.exception.SDSExceptionHandler;
 import com.sds.ppty.dao.mybatis.SDSMyBatisTemplate;
 
 @Repository("baseDAO")
 public class BaseDAO {
+
+	@Autowired
+	@Qualifier("DaoExceptionHandler")
+	private SDSExceptionHandler exceptionHandler;
+	
+	/**
+	 * @return the exceptionHandler
+	 */
+	public SDSExceptionHandler getExceptionHandler() {
+		return exceptionHandler;
+	}
+
+	/**
+	 * @param exceptionHandler the exceptionHandler to set
+	 */
+	public void setExceptionHandler(SDSExceptionHandler exceptionHandler) {
+		this.exceptionHandler = exceptionHandler;
+	}
 
 	@Autowired
 	@Qualifier("SDSMyBatisTemplate")

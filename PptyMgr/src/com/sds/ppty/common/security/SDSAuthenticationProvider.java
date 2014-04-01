@@ -17,8 +17,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.sds.ppty.common.exception.DAOException;
+import com.sds.ppty.common.exception.ServiceException;
 import com.sds.ppty.dao.common.SDSAuthDAO;
 import com.sds.ppty.prl.test.TestController;
+import com.sds.ppty.services.security.SDSCommonService;
 
 public class SDSAuthenticationProvider implements AuthenticationProvider, UserDetailsService {
 	
@@ -41,7 +44,7 @@ public class SDSAuthenticationProvider implements AuthenticationProvider, UserDe
 	    AUTHORITIES.add(new GrantedAuthorityImpl("ROLE_TELLER"));
 	}
 	@Override
-	public Authentication authenticate(Authentication auth)
+	public Authentication authenticate (Authentication auth)
 			throws AuthenticationException {
 		logger.info("Authenticating user - "+auth.getName());
 		/* if (auth.getName().equals(auth.getCredentials())) {
@@ -56,7 +59,13 @@ public class SDSAuthenticationProvider implements AuthenticationProvider, UserDe
         
         if (name.equals("admin") && password.equals("system")) {
             List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
-            String role =  this.getAuthDAO().getUserRole(name);
+            String role="";
+			try {
+				role = this.getAuthDAO().getUserRole(name);
+			} catch (DAOException e) {
+				e.printStackTrace();
+				logger.error("security exception --"+e.getStackTrace());
+			}
             System.out.println(role);
             grantedAuths.add(new GrantedAuthorityImpl(role));
             grantedAuths.add(new GrantedAuthorityImpl("ROLE_USER"));
